@@ -10,7 +10,7 @@
 
 	<groupId>io.earcam.wrapped</groupId>
 	<artifactId>org.openjdk.dio</artifactId>
-	<version>1.1.1-SNAPSHOT</version>
+	<version>1.1.1-2017-03-24</version>
 
 	<packaging>jar</packaging>
 
@@ -47,6 +47,20 @@
 		</repository>
 	</distributionManagement>
 
+
+	<properties>
+		<scm.revision.dio>258</scm.revision.dio>
+		<scm.changeset.dio>258:2da1e9b94ad7</scm.changeset.dio>
+		<version.spec.dio>1.1</version.spec.dio>
+	
+		<version.java>1.8</version.java>
+		<maven.compiler.source>${version.java}</maven.compiler.source>
+		<maven.compiler.target>${version.java}</maven.compiler.target>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+
 	<profiles>
 		<profile>
 			<id>linux</id>
@@ -75,13 +89,6 @@
 		</profile>
 	</profiles>
 
-	<properties>
-		<version.java>1.8</version.java>
-		<maven.compiler.source>${version.java}</maven.compiler.source>
-		<maven.compiler.target>${version.java}</maven.compiler.target>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
 
 	<build>
 		<pluginManagement>
@@ -171,6 +178,8 @@
 				<version>1.9.5</version>
 				<configuration>
 					<connectionUrl>scm:hg:http://hg.openjdk.java.net/dio/dev</connectionUrl>
+					<scmVersion>${scm.revision.dio}</scmVersion>
+					<scmVersionType>revision</scmVersionType>
 					<connectionType>connection</connectionType>
 					<skipCheckoutIfExists>true</skipCheckoutIfExists>
 					<connectionType>connection</connectionType>
@@ -332,7 +341,9 @@
 						<Implementation-Version>dev</Implementation-Version>
 						<Specification-Vendor>Oracle Corporation</Specification-Vendor>
 						<Specification-Title>Device I/O</Specification-Title> 
-						<Specification-Version>1.1</Specification-Version>
+						<Specification-Version>${version.spec.dio}</Specification-Version>
+						<Mercurial-ChangeSet>${scm.changeset.dio}</Mercurial-ChangeSet>
+						<Mercurial-Revision>${scm.revision.dio}</Mercurial-Revision>
 					</instructions>
 				</configuration>
 				<executions>
