@@ -1,7 +1,7 @@
 # Wrap of OpenJDK's Device IO
 
 [![Build Status](https://travis-ci.org/earcam/org.openjdk.dio.svg?branch=master)](https://travis-ci.org/earcam/org.openjdk.dio)
-
+[![Javadocs](http://www.javadoc.io/badge/io.earcam.wrapped/org.openjdk.dio.svg?color=yellowgreen)](http://www.javadoc.io/doc/io.earcam.wrapped/org.openjdk.dio)
 
 This is just a Maven wrapper project around [OpenJDK DIO](https://wiki.openjdk.java.net/display/dio/Main).
  
