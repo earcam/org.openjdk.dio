@@ -23,6 +23,7 @@ before_install:
 install:  
    - mkdir -p ${PI_LOCAL}
    - (cd ${PI_LOCAL} && git clone ${PI_REPO})
+   - export PI_TOOLS=`pwd`/${PI_TOOLS}
    - ln -s ${PI_TOOLS}/bin/arm-linux-gnueabihf-gcc ${PI_TOOLS}/bin/gcc
    - ls -l ${PI_TOOLS}/bin
    - export PATH="${PI_TOOLS}:${PATH}"
