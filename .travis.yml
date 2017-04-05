@@ -27,5 +27,5 @@ install:
    - (cd ${PI_TOOLS} && ln -s arm-linux-gnueabihf-gcc gcc) 
    - export PATH="${PI_TOOLS}:${PATH}"
    - wget ${MVN_TOOLCHAIN} -O ~/.m2/toolchains.xml
-   - mvn -X -U -Dpi.tools=../../${PI_TOOLS} clean verify
+   - mvn -Dpi.tools=../../${PI_TOOLS} clean verify
     
