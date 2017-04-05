@@ -23,7 +23,8 @@ before_install:
 install:  
    - mkdir -p ${PI_LOCAL}
    - (cd ${PI_LOCAL} && git clone ${PI_REPO})
-   - (cd ${PI_TOOLS}/bin && ln -s arm-linux-gnueabihf-gcc gcc) 
+   - ln -s ${PI_TOOLS}/bin/arm-linux-gnueabihf-gcc ${PI_TOOLS}/bin/gcc
+   - ls -l ${PI_TOOLS}/bin
    - export PATH="${PI_TOOLS}:${PATH}"
    - wget ${MVN_TOOLCHAIN} -O ~/.m2/toolchains.xml
    - mvn -Dpi.tools=`pwd`/${PI_TOOLS} clean verify
