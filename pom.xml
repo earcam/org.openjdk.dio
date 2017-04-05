@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>io.earcam.maven</groupId>
 		<artifactId>io.earcam.maven.pom</artifactId>
-		<version>2.0.1-SNAPSHOT</version>
+		<version>2.0.1</version>
 	</parent>
 
 	<groupId>io.earcam.wrapped</groupId>
@@ -36,6 +36,16 @@
 		<url>https://travis-ci.org/earcam/org.openjdk.dio</url>
 	</ciManagement>
 
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 
 	<profiles>
 		<profile>
