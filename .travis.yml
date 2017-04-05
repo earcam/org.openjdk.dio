@@ -28,5 +28,5 @@ install:
    - ls -l ${PI_TOOLS}/bin
    - export PATH="${PI_TOOLS}:${PATH}"
    - wget ${MVN_TOOLCHAIN} -O ~/.m2/toolchains.xml
-   - mvn -Dpi.tools=`pwd`/${PI_TOOLS} clean verify
+   - mvn -Dpi.tools=${PI_TOOLS} clean verify
     
