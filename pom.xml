@@ -1,0 +1,427 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>io.earcam.maven</groupId>
+		<artifactId>io.earcam.maven.pom</artifactId>
+		<version>2.0.1-SNAPSHOT</version>
+	</parent>
+
+	<groupId>io.earcam.wrapped</groupId>
+	<artifactId>org.openjdk.dio</artifactId>
+	<version>1.1.1-SNAPSHOT</version>
+
+	<packaging>jar</packaging>
+
+
+	<description>Maven/OSGi repackaging of OpenJDK's Device IO library</description>
+
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+			<distribution>repo</distribution>
+		</license>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+		<license>
+			<name>Eclipse Public License</name>
+			<url>https://www.eclipse.org/legal/epl-v10.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<connection>scm:git:git://github.com/earcam/org.openjdk.dio.git</connection>
+		<developerConnection>scm:git:ssh://github.com:earcam/org.openjdk.dio.git</developerConnection>
+		<url>http://github.com/earcam/org.openjdk.dio/tree/master</url>
+	</scm>
+	
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>https://travis-ci.org/earcam/org.openjdk.dio</url>
+	</ciManagement>
+
+
+	<profiles>
+		<profile>
+			<id>linux</id>
+			<activation>
+				<os>
+					<family>unix</family>
+					<arch>amd64</arch>
+				</os>
+			</activation>
+			<properties>
+				<pi.tools>/opt/raspberrypi/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64</pi.tools>
+			</properties>
+		</profile>
+	
+		<profile>
+			<id>raspberry.pi</id>
+			<activation>
+				<os>
+					<family>unix</family>
+					<arch>arm</arch>
+				</os>
+			</activation>
+			<properties>
+				<pi.tools>/usr</pi.tools>
+			</properties>
+		</profile>
+	</profiles>
+
+	<properties>
+		<version.java>1.8</version.java>
+		<maven.compiler.source>${version.java}</maven.compiler.source>
+		<maven.compiler.target>${version.java}</maven.compiler.target>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-toolchains-plugin</artifactId>
+					<version>1.1</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>toolchain</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<toolchains>
+							<jdk>
+								<version>[${version.java},)</version>
+								<vendor>oracle</vendor>
+							</jdk>
+						</toolchains>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<inherited>true</inherited>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-scm-plugin</artifactId>
+										<versionRange>1.9.5,)</versionRange>
+										<goals>
+											<goal>checkout</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>exec-maven-plugin</artifactId>
+										<versionRange>[1.6.0,)</versionRange>
+										<goals>
+											<goal>exec</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.coderplus.maven.plugins</groupId>
+										<artifactId>copy-rename-maven-plugin</artifactId>
+										<versionRange>[1.0.1,)</versionRange>
+										<goals>
+											<goal>copy</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+				<version>1.9.5</version>
+				<configuration>
+					<connectionUrl>scm:hg:http://hg.openjdk.java.net/dio/dev</connectionUrl>
+					<connectionType>connection</connectionType>
+					<skipCheckoutIfExists>true</skipCheckoutIfExists>
+					<connectionType>connection</connectionType>
+				</configuration>
+				<executions>
+					<execution>
+						<id>clone</id>
+						<goals>
+							<goal>checkout</goal>
+						</goals>
+						<phase>generate-sources</phase>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.scm</groupId>
+						<artifactId>maven-scm-provider-hg</artifactId>
+						<version>1.9.5</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>compile</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<environmentVariables>
+						<PI_TOOLS>${pi.tools}</PI_TOOLS>
+						<JAVA_HOME>${java.home}/..</JAVA_HOME> <!-- reliant on JVM vendor specifics due to maven's java.home pointing to JRE -->
+					</environmentVariables>
+					<executable>make</executable>
+					<workingDirectory>${project.build.directory}/checkout</workingDirectory>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>extract-jar</id>
+						<phase>prepare-package</phase>
+						<configuration>
+							<target>
+								<unzip src="${project.build.directory}/checkout/build/deviceio/lib/ext/dio.jar" dest="${project.build.directory}/classes" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+
+					<execution>
+						<id>copy-sources</id>
+						<phase>prepare-package</phase>
+						<configuration>
+							<target>
+								<copy todir="${project.build.directory}/faux-source/romizer/">
+									<fileset dir="${project.build.directory}/checkout/src/se/classes/impl/romizer/" includes="**" />
+								</copy>
+ 
+								<copy todir="${project.build.directory}/faux-source/apimarker/">
+									<fileset dir="${project.build.directory}/checkout/src/se/classes/impl/apimarker/" includes="**" />
+								</copy>
+ 
+								<copy todir="${project.build.directory}/faux-source/com/">
+									<fileset dir="${project.build.directory}/checkout/src/se/classes/com/" includes="**" />
+								</copy>
+ 
+								<copy todir="${project.build.directory}/faux-source/jdk/">
+									<fileset dir="${project.build.directory}/checkout/src/share/classes/jdk/" includes="**" />
+								</copy>
+ 
+								<copy todir="${project.build.directory}/faux-source/com/">
+									<fileset dir="${project.build.directory}/checkout/src/share/classes/com/" includes="**" />
+								</copy>
+ 							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+
+					<execution>
+						<id>create-faux-source-jar</id>
+						<phase>prepare-package</phase>
+						<configuration>
+							<target>
+								<zip basedir="${project.build.directory}/faux-source" destfile="${project.build.directory}/faux-source.jar" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>com.coderplus.maven.plugins</groupId>
+				<artifactId>copy-rename-maven-plugin</artifactId>
+				<version>1.0.1</version>
+				<executions>
+					<execution>
+						<id>rename-properties-file</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<sourceFile>${project.build.directory}/checkout/config/dio.properties-raspberrypi</sourceFile>
+							<destinationFile>${project.build.directory}/raspberrypi-dio.properties</destinationFile>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>copy-native-libs</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<sourceFile>${project.build.directory}/checkout/build/deviceio/lib/arm/libdio.so</sourceFile>
+							<destinationFile>${project.build.directory}/classes/lib/arm/libdio.so</destinationFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>3.3.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>true</addMavenDescriptor>
+					</archive>
+					<supportedProjectTypes>
+						<supportedProjectType>jar</supportedProjectType>
+					</supportedProjectTypes>
+					<instructions>
+						<Export-Package>jdk.dio.*,com.oracle.dio.*</Export-Package>
+						<Private-Package>apimarker,romizer,serializator</Private-Package>
+						<Bundle-NativeCode>lib/arm/libdio.so;processor=arm;osname=linux</Bundle-NativeCode>
+						<Bundle-Description>See https://wiki.openjdk.java.net/display/dio</Bundle-Description>
+						<Bundle-License>GPL</Bundle-License>
+						<Implementation-Title>jdk.dio</Implementation-Title>
+						<Implementation-Version>dev</Implementation-Version>
+						<Specification-Vendor>Oracle Corporation</Specification-Vendor>
+						<Specification-Title>Device I/O</Specification-Title> 
+						<Specification-Version>1.1</Specification-Version>
+					</instructions>
+				</configuration>
+				<executions>
+					<execution>
+						<id>create-manifest</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>manifest</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
+				<configuration>
+					<archive>
+						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<id>attach-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>attach-artifact</goal>
+						</goals>
+						<configuration>
+							<artifacts>
+								<artifact>
+									<file>${project.build.directory}/checkout/build/deviceio/lib/arm/libdio.so</file>
+									<type>so</type>
+								</artifact>
+
+								<artifact>
+									<file>${project.build.directory}/checkout/build/jar/dio-samples.jar</file>
+									<type>jar</type>
+									<classifier>sample</classifier>
+								</artifact>
+
+								<artifact>
+									<file>${project.build.directory}/checkout/config/dio.properties-raspberrypi</file>
+									<type>properties</type>
+									<classifier>raspberrypi</classifier>
+								</artifact>
+
+								<artifact>
+									<file>${project.build.directory}/checkout/samples/gpio/gpio.policy</file>
+									<type>policy</type>
+									<classifier>gpio-raspberrypi</classifier>
+								</artifact>
+
+								<artifact>
+									<file>${project.build.directory}/faux-source.jar</file>
+									<type>jar</type>
+									<classifier>sources</classifier>
+								</artifact>
+							</artifacts>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<descriptors>
+						<descriptor>src/assembly/assembly.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<phase>package</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

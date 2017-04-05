@@ -1,0 +1,62 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+  
+  <id>openjdk.dio</id>
+  
+  <formats>
+  	<format>tgz</format>
+  </formats>
+  
+  <fileSets>
+  	<fileSet>
+  		<directory>${project.build.directory}/checkout/build/deviceio/lib/arm/</directory>
+  		<includes>
+  			<include>libdio.so</include>
+  		</includes>
+  		<outputDirectory>lib/native</outputDirectory>
+  	</fileSet>
+
+  	<fileSet>
+  		<directory>${project.build.directory}/checkout/build/deviceio/lib/ext/</directory>
+  		<includes>
+  			<include>dio.jar</include>
+  		</includes>
+  		<outputDirectory>lib/ext</outputDirectory>
+  	</fileSet>
+
+  	<fileSet>
+  		<directory>${project.build.directory}/checkout/build/jar/</directory>
+  		<includes>
+  			<include>dio-samples.jar</include>
+  		</includes>
+  		<outputDirectory>lib</outputDirectory>
+  	</fileSet>
+
+  	<fileSet>
+  		<directory>${project.build.directory}</directory>
+  		<includes>
+  			<include>raspberrypi-dio.properties</include>
+  		</includes>
+  		<outputDirectory>etc</outputDirectory>
+  	</fileSet>
+
+  	<fileSet>
+  		<directory>${project.build.directory}/checkout/samples/gpio/</directory>
+  		<includes>
+  			<include>gpio.policy</include>
+  		</includes>
+  		<outputDirectory>etc</outputDirectory>
+  	</fileSet>
+
+  	<fileSet>
+  		<directory>src/main/scripts/</directory>
+  		<includes>
+  			<include>*.sh</include>
+  		</includes>
+  		<fileMode>755</fileMode>
+  		<outputDirectory></outputDirectory>
+  	</fileSet>
+  
+  </fileSets>
+  
+</assembly>

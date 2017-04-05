@@ -1,0 +1,29 @@
+language: java
+
+jdk: oraclejdk8
+
+os: linux
+
+env:
+	global:
+		- PI_REPO=https://github.com/raspberrypi/tools
+		- PI_LOCAL=./opt/raspberrypi
+		- PI_TOOLS=${PI_LOCAL}/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin
+		- MVN_TOOLCHAIN=https://repo1.maven.org/maven2/io/earcam/maven/io.earcam.maven.toolchain/2.0.0/io.earcam.maven.toolchain-2.0.0-linux-debian.xml
+
+ 
+before_install:
+	- sudo apt-get install mercurial
+	- sudo apt-get install git
+	- sudo apt-get install bc
+ 
+
+install:  
+	- mkdir -p ${PI_LOCAL}
+	- cd ${PI_LOCAL}
+ 	- git clone ${PI_REPO}
+ 	- ln -s ${PI_TOOLS}/arm-linux-gnueabihf-gcc ${PI_TOOLS}/gcc
+ 	- export PATH="${PI_TOOLS}:${PATH}"
+ 	- wget ${MVN_TOOLCHAIN} -O ~/.m2/toolchains.xml
+ 	- mvn -Dpi.tools=${PI_TOOLS} verify
+ 	
