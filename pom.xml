@@ -375,7 +375,8 @@
 				<executions>
 					<execution>
 						<id>attach-artifacts</id>
-						<phase>verify</phase>
+						<!-- post-integration-test as gpg generates signatures in verify -->
+						<phase>post-integration-test</phase>
 						<goals>
 							<goal>attach-artifact</goal>
 						</goals>
