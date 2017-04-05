@@ -12,7 +12,7 @@ This is just a Maven wrapper project around [OpenJDK DIO](https://wiki.openjdk.j
   * sample code jar, properties and security policy
   * a tarball with script to run the [GPIOLEDSample](http://hg.openjdk.java.net/dio/dev/file/tip/samples/gpio/src/dio/gpio/GPIOLEDSample.java) out of the box
 2. Add sufficient OSGi metadata to run happily in any Java 8 OSGi runtime
-3. Add maven source artifacts to ease development
+3. Add maven source and javadoc artifacts to ease development
 
 ## Licence
 
@@ -107,7 +107,6 @@ And then build with `mvn install`.  If you have Raspberry Pi tools in a differen
 
 ## TODOs
 * Automate the amd64 steps for pi tools
-* Add javadoc artifact and chuck on javadoc.io
 * Maven site as GitHub site, so people can just copy paste GAV for LATEST
 
 ## See Also

@@ -247,6 +247,10 @@
 						<phase>prepare-package</phase>
 						<configuration>
 							<target>
+								<copy todir="${project.build.directory}/faux-source/serializator/">
+									<fileset dir="${project.build.directory}/checkout/src/se/classes/serializator/" includes="**" />
+								</copy>
+
 								<copy todir="${project.build.directory}/faux-source/romizer/">
 									<fileset dir="${project.build.directory}/checkout/src/se/classes/impl/romizer/" includes="**" />
 								</copy>
@@ -366,6 +370,23 @@
 						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
 					</archive>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<sourcepath>${project.build.directory}/faux-source</sourcepath>
+							<failOnError>false</failOnError>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>
