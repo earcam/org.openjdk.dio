@@ -7,7 +7,7 @@ os: linux
 env:
    global:
       - PI_REPO=https://github.com/raspberrypi/tools
-      - PI_LOCAL=./target/opt/raspberrypi
+      - PI_LOCAL=target/opt/raspberrypi
       - PI_TOOLS=${PI_LOCAL}/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin
       - MVN_TOOLCHAIN=https://repo1.maven.org/maven2/io/earcam/maven/io.earcam.maven.toolchain/2.0.1/io.earcam.maven.toolchain-2.0.1-linux-debian-amd64.xml
 
@@ -27,5 +27,5 @@ install:
    - (cd ${PI_TOOLS} && ln -s arm-linux-gnueabihf-gcc gcc) 
    - export PATH="${PI_TOOLS}:${PATH}"
    - wget ${MVN_TOOLCHAIN} -O ~/.m2/toolchains.xml
-   - mvn -Dpi.tools=../../${PI_TOOLS} clean verify
+   - mvn -Dpi.tools=`pwd`/${PI_TOOLS} clean verify
     
