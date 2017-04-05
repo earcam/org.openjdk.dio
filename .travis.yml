@@ -4,29 +4,40 @@ jdk: oraclejdk8
 
 os: linux
 
+cache:
+  apt: true
+  directories:
+      - ~/.m2
+
 env:
    global:
       - PI_REPO=https://github.com/raspberrypi/tools
-      - PI_LOCAL=target/opt/raspberrypi
+      - PI_LOCAL=opt/raspberrypi
       - PI_TOOLS=${PI_LOCAL}/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64
       - MVN_TOOLCHAIN=https://repo1.maven.org/maven2/io/earcam/maven/io.earcam.maven.toolchain/2.0.1/io.earcam.maven.toolchain-2.0.1-linux-debian-amd64.xml
 
  
 before_install:
-   - sudo apt-get install mercurial
-   - sudo apt-get install git
-   - sudo apt-get install bc
-   - sudo apt-get install maven
-   - sudo apt-get install ant
+   - sudo apt-get -q install mercurial
+   - sudo apt-get -q install git
+   - sudo apt-get -q install bc
+   - sudo apt-get -q install maven
+   - sudo apt-get -q install ant
 
+install:
+   -
 
-install:  
+script: 
+   - #pwd 
    - mkdir -p ${PI_LOCAL}
    - (cd ${PI_LOCAL} && git clone ${PI_REPO})
    - export PI_TOOLS=`pwd`/${PI_TOOLS}
+   - #echo ${PI_TOOLS}
    - ln -s ${PI_TOOLS}/bin/arm-linux-gnueabihf-gcc ${PI_TOOLS}/bin/gcc
-   - ls -l ${PI_TOOLS}/bin
-   - export PATH="${PI_TOOLS}:${PATH}"
+   - #ls -l ${PI_TOOLS}/bin
    - wget ${MVN_TOOLCHAIN} -O ~/.m2/toolchains.xml
-   - mvn -Dpi.tools=${PI_TOOLS} clean verify
-    
+   - #pwd
+   - ls -l ${PI_TOOLS}/bin/gcc
+   - ${PI_TOOLS}/bin/gcc -v
+   - mvn  -Dpi.tools=${PI_TOOLS} clean verify    |  egrep -v 'Download.*tp?s://'   2>&1
+
