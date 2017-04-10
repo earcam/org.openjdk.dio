@@ -1,4 +1,4 @@
-# Wrap of OpenJDK's Device IO
+# Wrap of OpenJDK's Device I/O
 
 [![Build Status](https://travis-ci.org/earcam/org.openjdk.dio.svg?branch=master)](https://travis-ci.org/earcam/org.openjdk.dio)
 [![Javadocs](http://www.javadoc.io/badge/io.earcam.wrapped/org.openjdk.dio.svg?color=yellowgreen)](http://www.javadoc.io/doc/io.earcam.wrapped/org.openjdk.dio)
@@ -11,25 +11,27 @@ This is just a Maven wrapper project around [OpenJDK DIO](https://wiki.openjdk.j
   * jar and native libraries
   * sample code jar, properties and security policy
   * a tarball with script to run the [GPIOLEDSample](http://hg.openjdk.java.net/dio/dev/file/tip/samples/gpio/src/dio/gpio/GPIOLEDSample.java) out of the box
-2. Add sufficient OSGi metadata to run happily in any Java 8 OSGi runtime
+2. Add sufficient OSGi metadata to run happily in _any_ Java 8 OSGi runtime
 3. Add maven source and javadoc artifacts to ease development
 
 ## Licence
 
-It's GPL, as per the underlying licence http://hg.openjdk.java.net/dio/dev/file/tip/LICENSE
+It's [GPL v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html), as per the underlying licence http://hg.openjdk.java.net/dio/dev/file/tip/LICENSE
 
 
 ## Using
-See this project's assembly.xml for an trivial example of how the libs can be packaged.
+See this project's assembly.xml for a trivial example of how the libs can be packaged.
 
 ### Dependency Management
 
-The DIO library is packaged as an OSGi bundle (including the native lib):
+Latest version can be determined from [central](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22org.openjdk.dio%22%20AND%20g%3A%22io.earcam.wrapped%22).
+
+The DIO library is packaged as an OSGi bundle (note the native library is embedded in the jar):
 
 	<dependency>
 		<groupId>io.earcam.wrapped</groupId>
 		<artifactId>org.openjdk.dio</artifactId>
-		<version>LATEST</version>
+		<version>${version.dio}</version>
 	</dependency>
 
 
@@ -38,7 +40,7 @@ The native library can be referenced independently with `<type>so</type>`:
 	<dependency>
 		<groupId>io.earcam.wrapped</groupId>
 		<artifactId>org.openjdk.dio</artifactId>
-		<version>LATEST</version>
+		<version>${version.dio}</version>
 		<type>so</type>
 	</dependency>
 
@@ -47,14 +49,14 @@ The sample code jar has `<classifier>sample</classifier>`:
 	<dependency>
 		<groupId>io.earcam.wrapped</groupId>
 		<artifactId>org.openjdk.dio</artifactId>
-		<version>LATEST</version>
+		<version>${version.dio}</version>
 		<classifier>sample</classifier>
 	</dependency>
 
 
-### Download ZIP archive
+### Download tarball archive
 
-_TODO add central URL_
+A standalone TGZ can be downloaded from [central](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22org.openjdk.dio%22%20AND%20g%3A%22io.earcam.wrapped%22).
 
 ## Versioning
 
@@ -74,13 +76,11 @@ Maven project from repo checkout of [http://hg.openjdk.java.net/dio](http://hg.o
 
 There are two profiles; Unix x86 amd64 and Unix ARM.  The x86 build cross-compiles using the r-pi tools.
 
-Assuming you've Maven3 and Java8, prerequisite steps for both profiles are:
+Assuming you've Maven3 and Java8, a prerequisite step for both profiles is:
 
 * Install [Mercurial](https://www.mercurial-scm.org/) (annoyingly there doesn't appear to be a pure Java SCM provider for Mercurial - otherwise the build could be fully self-contained for both).
 
 	sudo apt-get install mercurial
-
-* A Maven [toolchains.xml](https://maven.apache.org/guides/mini/guide-using-toolchains.html) file.  [Download example](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22io.earcam.maven.toolchain%22) from Maven Central and save as ~/.m2/toolchains.xml (or alternatively remove this plugin from the POM)
 
 
 ### Raspberry Pi
