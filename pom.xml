@@ -10,7 +10,7 @@
 
 	<groupId>io.earcam.wrapped</groupId>
 	<artifactId>org.openjdk.dio</artifactId>
-	<version>1.1.1-2017-03-24</version>
+	<version>1.1.0</version>
 
 	<packaging>jar</packaging>
 
@@ -49,8 +49,8 @@
 
 
 	<properties>
-		<scm.revision.dio>258</scm.revision.dio>
-		<scm.changeset.dio>258:2da1e9b94ad7</scm.changeset.dio>
+		<scm.revision.dio>140</scm.revision.dio>
+		<scm.changeset.dio>140:0bd6096d06e7</scm.changeset.dio>
 		<scm.repository.dio>dev</scm.repository.dio>
 		<version.spec.dio>1.1</version.spec.dio>
 	
