@@ -10,12 +10,12 @@
 
 	<groupId>io.earcam.wrapped</groupId>
 	<artifactId>org.openjdk.dio</artifactId>
-	<version>1.1.1-2017-03-24</version>
+	<version>1.1</version>
 
 	<packaging>jar</packaging>
 
 
-	<description>Maven/OSGi repackaging of OpenJDK's Device IO library</description>
+	<description>Maven/OSGi repackaging of OpenJDK's Device I/O library</description>
 
 	<licenses>
 		<license>
@@ -49,8 +49,9 @@
 
 
 	<properties>
-		<scm.revision.dio>258</scm.revision.dio>
-		<scm.changeset.dio>258:2da1e9b94ad7</scm.changeset.dio>
+		<scm.revision.dio>140</scm.revision.dio>
+		<scm.changeset.dio>140:2d562d9c0044</scm.changeset.dio>
+		<scm.repository.dio>master</scm.repository.dio>
 		<version.spec.dio>1.1</version.spec.dio>
 	
 		<version.java>1.8</version.java>
@@ -177,7 +178,7 @@
 				<artifactId>maven-scm-plugin</artifactId>
 				<version>1.9.5</version>
 				<configuration>
-					<connectionUrl>scm:hg:http://hg.openjdk.java.net/dio/dev</connectionUrl>
+					<connectionUrl>scm:hg:http://hg.openjdk.java.net/dio/${scm.repository.dio}</connectionUrl>
 					<scmVersion>${scm.revision.dio}</scmVersion>
 					<scmVersionType>revision</scmVersionType>
 					<connectionType>connection</connectionType>
