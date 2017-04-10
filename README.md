@@ -16,11 +16,11 @@ This is just a Maven wrapper project around [OpenJDK DIO](https://wiki.openjdk.j
 
 ## Licence
 
-It's [GPL v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html), as per the underlying licence http://hg.openjdk.java.net/dio/dev/file/tip/LICENSE
+It's [GPL v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html), as per the [underlying licence](http://hg.openjdk.java.net/dio/dev/file/tip/LICENSE). 
 
 
 ## Using
-See this project's assembly.xml for a trivial example of how the libs can be packaged.
+Please refer to the [OpenJDK Device I/O project site](https://wiki.openjdk.java.net/display/dio).
 
 ### Dependency Management
 
@@ -31,7 +31,7 @@ The DIO library is packaged as an OSGi bundle (note the native library is embedd
 	<dependency>
 		<groupId>io.earcam.wrapped</groupId>
 		<artifactId>org.openjdk.dio</artifactId>
-		<version>${version.dio}</version>
+		<version>1.1.1-2017-03-24</version>
 	</dependency>
 
 
@@ -40,7 +40,7 @@ The native library can be referenced independently with `<type>so</type>`:
 	<dependency>
 		<groupId>io.earcam.wrapped</groupId>
 		<artifactId>org.openjdk.dio</artifactId>
-		<version>${version.dio}</version>
+		<version>1.1.1-2017-03-24</version>
 		<type>so</type>
 	</dependency>
 
@@ -49,7 +49,7 @@ The sample code jar has `<classifier>sample</classifier>`:
 	<dependency>
 		<groupId>io.earcam.wrapped</groupId>
 		<artifactId>org.openjdk.dio</artifactId>
-		<version>${version.dio}</version>
+		<version>1.1.1-2017-03-24</version>
 		<classifier>sample</classifier>
 	</dependency>
 
@@ -60,15 +60,13 @@ A standalone TGZ can be downloaded from [central](http://search.maven.org/#searc
 
 ## Versioning
 
-_Currently just repacking the dev tip. Will create branches for existing 1.0 and 1.1 releases_
+Available versions are: [1.1.0](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22org.openjdk.dio%22%20AND%20g%3A%22io.earcam.wrapped%22%20AND%20v%3A%221.1.0%22) and [1.1.1-2017-03-24](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22org.openjdk.dio%22%20AND%20g%3A%22io.earcam.wrapped%22%20AND%20v%3A%221.1.1-2017-03-24%22)
 
-The DIO project is active but the cutting of releases appears to lag a little.  So the aim is to get the latest changes into Maven central with no official release version and without trampling on the versions set by the project's developers.
+<span style="color:red;font-weight:bold">Please note:</span> do not use wrapped version 1.1
 
-DIO releases to date have been 1.0 and 1.1, from scm logs it appears a 3 part version number is adopted for dev.
+Rather embarrassingly wrapped version [1.1](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22org.openjdk.dio%22%20AND%20g%3A%22io.earcam.wrapped%22%20AND%20v%3A%221.1%22) is taken from the wrong changeset and should not have been pushed to Maven central...  My embarrassment is now immutable and distributed. 
+Please use [1.1.0](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22org.openjdk.dio%22%20AND%20g%3A%22io.earcam.wrapped%22%20AND%20v%3A%221.1.0%22) instead. 
 
-A 3 part version number is used in concert with a timestamp as version qualifier.  The timestamp ties to the commit date, and the Mercurial revision and changeset hash can be found in the POM and as manifest headers.
-
-_TODO ping dio mailinglist and query versioning, releases, etc_
 
 ## Building
 
@@ -110,5 +108,5 @@ And then build with `mvn install`.  If you have Raspberry Pi tools in a differen
 * Maven site as GitHub site, so people can just copy paste GAV for LATEST
 
 ## See Also
-* https://www.raspberrypi.org/documentation/linux/kernel/building.md
-* https://wiki.openjdk.java.net/display/dio/Getting+Started
+* [https://www.raspberrypi.org/documentation/linux/kernel/building.md](https://www.raspberrypi.org/documentation/linux/kernel/building.md)
+* [https://wiki.openjdk.java.net/display/dio/Getting+Started](https://wiki.openjdk.java.net/display/dio/Getting+Started)
